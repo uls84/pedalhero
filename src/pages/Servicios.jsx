@@ -5,7 +5,7 @@ import "../css/Servicios.css";
 function Servicios() {
   return (
     <div className="services-container">
-      <img className="logoServices" src="public/logoGrande.png"></img>
+      <img className="logoServices" src="public/logogrande1.png"></img>
       <h1>Servicios</h1>
       <hr />
       <p>

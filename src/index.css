@@ -10,7 +10,6 @@ body {
   font-style: italic;
 }
 
-/* ===== NAVBAR ===== */
 nav ul {
   list-style: none;
   display: flex;
@@ -34,8 +33,6 @@ nav a:hover {
   background-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
-
-/* ===== Productos  ===== */
 
 #lista-productos {
   display: grid;
@@ -62,7 +59,7 @@ nav a:hover {
 }
 
 #lista-productos li img {
-  width: 250px;
+  width: 70%;
   height: 315px;
 }
 

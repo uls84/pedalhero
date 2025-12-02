@@ -12,3 +12,17 @@ nav {
   float: left;
   background-color: #422134;
 }
+
+.navLogo {
+  background-color: #422134;
+}
+
+.navLogo:hover {
+  background-color: #422134;
+}
+
+.userSession {
+  background-color: #422134;
+  display: grid;
+  justify-items: center;
+}
