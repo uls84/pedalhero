@@ -15,6 +15,9 @@ export default function Productos() {
 
   const [busqueda, setBusqueda] = useState("");
   const [paginaActual, setPaginaActual] = useState(1);
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
+  const [precioMin, setPrecioMin] = useState("");
+  const [precioMax, setPrecioMax] = useState("");
 
   useEffect(() => {
     document.title = "Tienda de Juegos de Mesa | Productos";
@@ -74,12 +77,16 @@ export default function Productos() {
     navigate("/formulario-producto", { state: { producto } });
   };
 
+  const categorias = [...new Set(productos.map(p => p.categoria).filter(Boolean))];
+
   const productosFiltrados = productos.filter(
     (producto) =>
       producto.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
       (producto.categoria &&
         producto.categoria.toLowerCase().includes(busqueda.toLowerCase()))
-  );
+  ).filter(producto => !categoriaSeleccionada || producto.categoria === categoriaSeleccionada)
+  .filter(producto => !precioMin || producto.precio >= parseFloat(precioMin))
+  .filter(producto => !precioMax || producto.precio <= parseFloat(precioMax));
 
   const indiceUltimoProducto = paginaActual * productosPorPagina;
   const indicePrimerProducto = indiceUltimoProducto - productosPorPagina;
@@ -105,97 +112,120 @@ export default function Productos() {
     <>
       <div className="container mt-4">
         <div className="row">
-          {productosActuales.map((producto) => (
-            <div key={producto.id} className="col-12 col-md-6 col-lg-4 mb-4">
-              <div className="card h-100" style={{ borderColor: "#A42B3D" }}>
-                <img
-                  src={producto.avatar}
-                  alt={producto.nombre}
-                  className="card-img-top"
-                  style={{ height: "160px", objectFit: "cover" }}
-                />
+          <div className="col-md-3" style={{ padding: '30px 30px 30px 0' }}>
+            <h5>Filtros</h5>
+            <div className="mb-3">
+              <label className="form-label">Categoría</label>
+              <select value={categoriaSeleccionada} onChange={e => {setCategoriaSeleccionada(e.target.value); setPaginaActual(1);}} className="form-select">
+                <option value="">Todas</option>
+                {categorias.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+              </select>
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Precio Mínimo</label>
+              <input type="number" value={precioMin} onChange={e => {setPrecioMin(e.target.value); setPaginaActual(1);}} className="form-control" />
+            </div>
+            <div className="mb-3">
+              <label className="form-label">Precio Máximo</label>
+              <input type="number" value={precioMax} onChange={e => {setPrecioMax(e.target.value); setPaginaActual(1);}} className="form-control" />
+            </div>
+            <button onClick={() => {setCategoriaSeleccionada(""); setPrecioMin(""); setPrecioMax(""); setPaginaActual(1);}} className="btn btn-secondary">Limpiar Filtros</button>
 
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title">{producto.nombre}</h5>
-                  <p className="card-text flex-grow-1">
-                    {producto.descripcion}
-                  </p>
-                  <p className="card-text fw-bold text-dark">
-                    ${producto.precio}
-                  </p>
+            {productosFiltrados.length > productosPorPagina && (
+              <div className="d-flex justify-content-start mt-5 mb-4">
+                {Array.from({ length: totalPaginas }, (_, index) => (
+                  <button
+                    key={index + 1}
+                    className="btn mx-1"
+                    style={
+                      paginaActual === index + 1
+                        ? { backgroundColor: "#A42B3D", color: "white", borderColor: "#A42B3D" }
+                        : { backgroundColor: "transparent", color: "#A42B3D", borderColor: "#A42B3D" }
+                    }
+                    onClick={() => cambiarPagina(index + 1)}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+              </div>
+            )}
 
-                  <div className="mt-auto">
-                    <div className="d-grid gap-2">
-                      <Link
-                        to={`/productos/${producto.id}`}
-                        state={{ producto }}
-                        className="btn btn-sm"
-                        style={{ backgroundColor: "white", color: "#A42B3D", borderColor: "#A42B3D" }}
-                      >
-                        Ver detalles
-                      </Link>
-                      <button
-                        onClick={() => agregarAlCarrito(producto)}
-                        className="btn btn-sm"
-                        style={{ backgroundColor: "#A42B3D", color: "white" }}
-                      >
-                        Agregar al carrito
-                      </button>
-                    </div>
+            {productosFiltrados.length > 0 && (
+              <div className="text-center text-muted mt-2">
+                <small>
+                  Mostrando {productosActuales.length} productos (página{" "}
+                  {paginaActual} de {totalPaginas})
+                </small>
+              </div>
+            )}
+          </div>
+          <div className="col-md-9">
+            <div className="row">
+              {productosActuales.map((producto) => (
+                <div key={producto.id} className="col-12 col-md-6 col-lg-4 mb-4">
+                  <div className="card" style={{ borderColor: "#A42B3D" }}>
+                    <img
+                      src={producto.avatar}
+                      alt={producto.nombre}
+                      className="card-img-top"
+                      style={{ height: "100px", objectFit: "cover" }}
+                    />
 
-                    {esAdmin && (
-                      <div className="mt-3 pt-3 border-top">
-                        <div className="d-flex gap-2">
-                          <button
-                            onClick={() => manejarEditar(producto)}
-                            className="btn btn-sm flex-fill"
-                            style={{ backgroundColor: "#28a745", borderColor: "#28a745", color: "white" }}
+                    <div className="card-body d-flex flex-column" style={{ padding: '0.5rem' }}>
+                      <h5 className="card-title">{producto.nombre}</h5>
+                      <p className="card-text flex-grow-1" style={{ fontSize: '0.9rem' }}>
+                        {producto.descripcion}
+                      </p>
+                      <p className="card-text fw-bold text-dark">
+                        ${producto.precio.toLocaleString('es-ES')}
+                      </p>
+
+                      <div className="mt-auto">
+                        <div className="d-grid gap-2">
+                          <Link
+                            to={`/productos/${producto.id}`}
+                            state={{ producto }}
+                            className="btn btn-sm"
+                            style={{ backgroundColor: "white", color: "#A42B3D", borderColor: "#A42B3D" }}
                           >
-                            Editar
-                          </button>
+                            Ver detalles
+                          </Link>
                           <button
-                            onClick={() => manejarEliminar(producto)}
-                            className="btn btn-danger btn-sm flex-fill"
+                            onClick={() => agregarAlCarrito(producto)}
+                            className="btn btn-sm"
+                            style={{ backgroundColor: "#A42B3D", color: "white" }}
                           >
-                            Eliminar
+                            Agregar al carrito
                           </button>
                         </div>
+
+                        {esAdmin && (
+                          <div className="mt-3 pt-3 border-top">
+                            <div className="d-flex gap-2">
+                              <button
+                                onClick={() => manejarEditar(producto)}
+                                className="btn btn-sm flex-fill"
+                                style={{ backgroundColor: "#28a745", borderColor: "#28a745", color: "white" }}
+                              >
+                                Editar
+                              </button>
+                              <button
+                                onClick={() => manejarEliminar(producto)}
+                                className="btn btn-danger btn-sm flex-fill"
+                              >
+                                Eliminar
+                              </button>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    )}
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
-
-        {productosFiltrados.length > productosPorPagina && (
-          <div className="d-flex justify-content-center my-4">
-            {Array.from({ length: totalPaginas }, (_, index) => (
-              <button
-                key={index + 1}
-                className="btn mx-1"
-                style={
-                  paginaActual === index + 1
-                    ? { backgroundColor: "#A42B3D", color: "white", borderColor: "#A42B3D" }
-                    : { backgroundColor: "transparent", color: "#A42B3D", borderColor: "#A42B3D" }
-                }
-                onClick={() => cambiarPagina(index + 1)}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
-        )}
-
-        {productosFiltrados.length > 0 && (
-          <div className="text-center text-muted mt-2">
-            <small>
-              Mostrando {productosActuales.length} productos (página{" "}
-              {paginaActual} de {totalPaginas})
-            </small>
-          </div>
-        )}
       </div>
     </>
   );

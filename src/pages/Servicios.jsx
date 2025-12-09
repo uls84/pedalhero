@@ -1,39 +1,45 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useProducts } from "../context/ProductsContext";
 import "../css/Servicios.css";
 
 function Servicios() {
-  const pedalImages = [
-    "/pedales/ampero2.png",
-    "/pedales/bigmuff.png",
-    "/pedales/bosschorus.png",
-    "/pedales/bossdelay.png",
-    "/pedales/bosstuner.png",
-    "/pedales/eventide.png",
-    "/pedales/heavymetal.png",
-    "/pedales/line6delay.png",
-    "/pedales/line6stomp.png",
-    "/pedales/metalzone.png",
-    "/pedales/novadelayelectronics.png",
-    "/pedales/quadcortex.png",
-    "/pedales/rat.png",
-    "/pedales/tubescreamer.png",
-    "/pedales/whammy.png"
-  ];
+  const { productos } = useProducts();
+  const navigate = useNavigate();
+  const productImages = productos.map(p => p.avatar);
 
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [opacity, setOpacity] = useState(1);
+
+  const changeImage = (newIndex) => {
+    setOpacity(0);
+    setTimeout(() => {
+      setCurrentIndex(newIndex);
+      setOpacity(1);
+    }, 500);
+  };
 
   const nextImage = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === pedalImages.length - 1 ? 0 : prevIndex + 1
-    );
+    const newIndex = currentIndex === productImages.length - 1 ? 0 : currentIndex + 1;
+    changeImage(newIndex);
   };
 
   const prevImage = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? pedalImages.length - 1 : prevIndex - 1
-    );
+    const newIndex = currentIndex === 0 ? productImages.length - 1 : currentIndex - 1;
+    changeImage(newIndex);
   };
+
+  const randomImage = () => {
+    const randomIndex = Math.floor(Math.random() * productImages.length);
+    changeImage(randomIndex);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      randomImage();
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="services-container">
@@ -58,13 +64,17 @@ function Servicios() {
         alta calidad, sino también una experiencia de compra excepcional.
       </p>
       <div className="slider-container">
-        <h2>Nuestra Selección de Pedales</h2>
-        <div className="slider">
+        <h2>Nuestra Selección de Productos</h2>
+        <div className="slider" onClick={() => navigate(`/productos/${productos[currentIndex].id}`, { state: { producto: productos[currentIndex] } })}>
           <img
             className="slider-image"
-            src={pedalImages[currentIndex]}
-            alt={`Pedal ${currentIndex + 1}`}
+            src={productImages[currentIndex]}
+            alt={`Producto ${currentIndex + 1}`}
+            style={{ opacity }}
           />
+          <div className="slider-overlay">
+            +info
+          </div>
         </div>
         <div className="slider-buttons">
           <button className="slider-btn" onClick={prevImage}>

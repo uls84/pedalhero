@@ -14,10 +14,11 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="services-container">
-      <h1 style={{ textAlign: 'center' }}>Dashboard Administrativo</h1>
-      <div style={{ padding: "20px" }}>
-        <p>
+    <div className="dashboard-container">
+      <div style={{ position: 'relative', zIndex: 2, width: '100%' }}>
+        <h1 style={{ textAlign: 'center' }}>Dashboard Administrativo</h1>
+        <div style={{ padding: "20px" }}>
+        <p style={{ textAlign: 'center' }}>
           <strong>Sesión iniciada como: </strong> {usuario.nombre}
         </p>
 
@@ -28,6 +29,7 @@ export default function Dashboard() {
             borderRadius: "4px",
             margin: "10px 0",
             fontSize: "14px",
+            textAlign: "center",
           }}
         >
           <strong>Token de autenticación:</strong>
@@ -98,6 +100,7 @@ export default function Dashboard() {
         >
           Cerrar sesión
         </button>
+        </div>
       </div>
     </div>
   );

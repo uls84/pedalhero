@@ -30,8 +30,8 @@ const ProductoDetalle = () => {
                     <img
                         src={producto.avatar}
                         alt={producto.nombre}
-                        className="img-fluid rounded"
-                        style={{ maxWidth: '100%', height: 'auto' }}
+                        className="rounded"
+                        style={{ maxWidth: '100%', maxHeight: '400px', width: 'auto', height: 'auto', objectFit: 'contain' }}
                     />
                 </div>
 
