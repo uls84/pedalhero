@@ -51,7 +51,14 @@ function Navbar() {
                 aria-label="Search"
                 style={{ width: "200px" }}
                 value={busquedaNavbar}
-                onChange={(e) => setBusquedaNavbar(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setBusquedaNavbar(value);
+                  // Si el usuario borra la búsqueda (queda vacío), navegar a productos sin filtros
+                  if (value === "") {
+                    navigate("/productos");
+                  }
+                }}
               />
               <button className="btn btn-outline-light" type="submit">
                 Buscar
