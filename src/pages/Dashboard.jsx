@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import "../css/Servicios.css";
 
 export default function Dashboard() {
   const { usuario, cerrarSesion } = useAuthContext();
@@ -13,11 +14,9 @@ export default function Dashboard() {
   };
 
   return (
-    <div style={{ padding: "20px", minHeight: "60vh" }}>
-      <h1>Dashboard Administrativo</h1>
-      <div
-        style={{ background: "#f5f5f5", padding: "20px", borderRadius: "8px" }}
-      >
+    <div className="services-container">
+      <h1 style={{ textAlign: 'center' }}>Dashboard Administrativo</h1>
+      <div style={{ padding: "20px" }}>
         <p>
           <strong>Sesión iniciada como: </strong> {usuario.nombre}
         </p>
@@ -35,7 +34,7 @@ export default function Dashboard() {
           <br />
           <code>{tokenActual}</code>
         </div>
-        <div style={{ margin: "20px 0" }}>
+        <div style={{ margin: "20px 0", textAlign: 'center' }}>
           <h3>Acciones:</h3>
           <div
             style={{
@@ -43,6 +42,7 @@ export default function Dashboard() {
               gap: "10px",
               flexWrap: "wrap",
               marginTop: "10px",
+              justifyContent: 'center',
             }}
           >
             <button
@@ -52,10 +52,12 @@ export default function Dashboard() {
                 background: "#28a745",
                 color: "white",
                 textDecoration: "none",
-                borderRadius: "4px",
+                borderRadius: "5px",
                 border: "none",
                 cursor: "pointer",
                 display: "inline-block",
+                fontSize: "16px",
+                transition: "background 0.3s",
               }}
             >
               Agregar Productos
@@ -65,11 +67,13 @@ export default function Dashboard() {
               to="/productos"
               style={{
                 padding: "10px 20px",
-                background: "#17a2b8",
+                background: "#007bff",
                 color: "white",
                 textDecoration: "none",
-                borderRadius: "4px",
+                borderRadius: "5px",
                 display: "inline-block",
+                fontSize: "16px",
+                transition: "background 0.3s",
               }}
             >
               Ver / Editar / Eliminar Productos
@@ -84,9 +88,12 @@ export default function Dashboard() {
             background: "#dc3545",
             color: "white",
             border: "none",
-            borderRadius: "4px",
+            borderRadius: "5px",
             cursor: "pointer",
-            marginTop: "10px",
+            margin: "10px auto",
+            display: "block",
+            fontSize: "16px",
+            transition: "background 0.3s",
           }}
         >
           Cerrar sesión

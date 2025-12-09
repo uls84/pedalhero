@@ -7,14 +7,16 @@ export const ProductsProvider = ({ children }) => {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
 
-
+  // Valida el Producto
   const validarProducto = (producto) => {
     const errores = {};
 
+    // nombre
     if (!producto.nombre?.trim()) {
       errores.nombre = 'El nombre es obligatorio.';
     }
 
+    // precio
     if (!producto.precio?.toString().trim()) {
       errores.precio = 'El precio es obligatorio.';
     } else {
@@ -30,6 +32,7 @@ export const ProductsProvider = ({ children }) => {
       }
     }
 
+    // descripción
     if (!producto.descripcion?.trim()) {
       errores.descripcion = 'La descripción es obligatoria.';
     } else if (producto.descripcion.length < 10) {
@@ -41,6 +44,7 @@ export const ProductsProvider = ({ children }) => {
     return errores;
   };
 
+  // Valida el Formulario
   const validar = (producto) => {
     const errores = validarProducto(producto);
     return {
@@ -124,6 +128,7 @@ export const ProductsProvider = ({ children }) => {
   );
 };
 
+// Hook personalizado para el contexto
 export const useProducts = () => {
   const context = useContext(ProductsContext);
   if (!context) {

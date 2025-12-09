@@ -8,6 +8,7 @@ function EliminarProducto() {
  
   const [cargando, setCargando] = useState(false);
 
+  // Función para eliminar producto
   const eliminarProducto = async () => {
     if (!producto) return;
    

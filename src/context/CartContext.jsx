@@ -1,29 +1,33 @@
 import React, { createContext, use, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-
+// Crear el contexto
 export const CartContext = createContext();
 
+// Proveedor del contexto
 export function CartProvider({ children }) {
-
+  // Estado del carrito
   const [carrito, setCarrito] = useState([]);
-  const [cargaCompleta, setCargaCompleta] = useState(false); 
+  const [cargaCompleta, setCargaCompleta] = useState(false); // Flag o bandera
 
   useEffect(() => {
     const carritoGuardado = localStorage.getItem("carrito"); 
     if (carritoGuardado) {
       setCarrito(JSON.parse(carritoGuardado));
     }
-    setCargaCompleta(true); 
+    setCargaCompleta(true); // Marca que la carga inicial ha terminado
   }, []);       
 
+  // cada vez que carrito cambie, guardarlo en localStorage
+useEffect(() => {
+  if (cargaCompleta && carrito.length > 0) { // ← SOLO guardar si hay items
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  } else if (cargaCompleta && carrito.length === 0) {
+    localStorage.removeItem("carrito"); // // y elimina cariito[] si está vacío
+  }
+}, [carrito, cargaCompleta]);
 
-  useEffect(() => {
-    if (cargaCompleta) { 
-      localStorage.setItem("carrito", JSON.stringify(carrito));
-    }
-  }, [carrito, cargaCompleta]);
-
+  // Funciones para el carrito
 const agregarAlCarrito = (producto) => {
     setCarrito(prevCarrito => {
       const productoExistente = prevCarrito.find(item => item.id === producto.id);
@@ -38,7 +42,9 @@ const agregarAlCarrito = (producto) => {
         return [...prevCarrito, { ...producto, cantidad: 1 }];
       }
     });
-    toast(`Producto ${producto.nombre} agregado.`);
+    toast.success(`Producto ${producto.nombre} agregado.`, {
+      style: { background: '#28a745', color: 'white' }
+    });
   };
 
   const vaciarCarrito = () => {
@@ -83,14 +89,19 @@ const agregarAlCarrito = (producto) => {
     return sum + (Number(item.precio) * cantidad);
   }, 0);
  
+  // Valor que se provee a todos los componentes
   const value = {  
+    // Carrito
     carrito,
     agregarAlCarrito,
     vaciarCarrito,
     eliminarDelCarrito,
 
+    // f(x) de Cantidad
     agregarCantidad,
     quitarCantidad,
+
+    // f(x) total
     total
   };
 

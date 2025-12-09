@@ -1,13 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/Servicios.css";
 
 function Servicios() {
+  const pedalImages = [
+    "/pedales/ampero2.png",
+    "/pedales/bigmuff.png",
+    "/pedales/bosschorus.png",
+    "/pedales/bossdelay.png",
+    "/pedales/bosstuner.png",
+    "/pedales/eventide.png",
+    "/pedales/heavymetal.png",
+    "/pedales/line6delay.png",
+    "/pedales/line6stomp.png",
+    "/pedales/metalzone.png",
+    "/pedales/novadelayelectronics.png",
+    "/pedales/quadcortex.png",
+    "/pedales/rat.png",
+    "/pedales/tubescreamer.png",
+    "/pedales/whammy.png"
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextImage = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === pedalImages.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const prevImage = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? pedalImages.length - 1 : prevIndex - 1
+    );
+  };
+
   return (
     <div className="services-container">
-      <img className="logoServices" src="public/logogrande1.png"></img>
+      <img className="logoServices" src="/logogrande1.png" alt="Logo" />
       <h1>Servicios</h1>
-      <hr />
       <p>
         Nuestra Experiencia en Pedales Musicales Con más de diez años de
         trayectoria en el mercado de pedales musicales, nos hemos consolidado
@@ -26,6 +57,24 @@ function Servicios() {
         nosotros y trabajamos incansablemente para ofrecer no solo productos de
         alta calidad, sino también una experiencia de compra excepcional.
       </p>
+      <div className="slider-container">
+        <h2>Nuestra Selección de Pedales</h2>
+        <div className="slider">
+          <img
+            className="slider-image"
+            src={pedalImages[currentIndex]}
+            alt={`Pedal ${currentIndex + 1}`}
+          />
+        </div>
+        <div className="slider-buttons">
+          <button className="slider-btn" onClick={prevImage}>
+            Anterior
+          </button>
+          <button className="slider-btn" onClick={nextImage}>
+            Siguiente
+          </button>
+        </div>
+      </div>
       <Link to="/">
         <button>Volver al Inicio</button>
       </Link>

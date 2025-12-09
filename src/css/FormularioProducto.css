@@ -1,0 +1,119 @@
+body {
+    font-family: 'Georgia', serif;
+    color: #333;
+    margin: 0;
+    /*padding: 20px; */
+}
+
+.form-container {
+    display: flex;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f9f6f4;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #A42B3D;
+    min-height: calc(100vh - 110px);
+}
+
+.form-container h2 {
+    color: #A42B3D;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-container p {
+    margin-bottom: 15px;
+    text-align: justify;
+    font-size: 15px;
+    color: #444;
+}
+
+.form-container form {
+    width: 100%;
+    max-width: 600px;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-container input,
+.form-container textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.form-container input:focus,
+.form-container textarea:focus {
+    border-color: #A42B3D;
+    outline: none;
+}
+
+.form-container .error-input {
+    border-color: red;
+}
+
+.form-container .error {
+    color: red;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.form-container .char-count {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.form-container .char-count.error {
+    color: red;
+}
+
+.form-container .buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.form-container button {
+    flex: 1;
+    padding: 12px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.form-container button:hover:not(:disabled) {
+    background: #218838;
+}
+
+.form-container button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.form-container .cancel-btn {
+    background: #A42B3D;
+}
+
+.form-container .cancel-btn:hover {
+    background: #8a2231;
+}

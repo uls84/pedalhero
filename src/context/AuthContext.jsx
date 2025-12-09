@@ -1,13 +1,14 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 
+// Crear el contexto de autenticación
 export const AuthContext = createContext();
 
-
+// Proveedor de autenticación
 export function AuthProvider({ children }) {
   const [usuario, setUsuario] = useState(null);
   const [cargando, setCargando] = useState(true);
 
-
+  // Verificar token al cargar la aplicación
   useEffect(() => {
     const token = localStorage.getItem("authToken");
     const emailGuardado = localStorage.getItem("authEmail");
@@ -21,7 +22,7 @@ export function AuthProvider({ children }) {
     setCargando(false);
   }, []);
 
-
+  // Función para iniciar sesión
   const iniciarSesion = (username, emailIngresado) => {
     const token = `fake-token-${username}`;
     localStorage.setItem("authToken", token);
@@ -34,6 +35,7 @@ export function AuthProvider({ children }) {
     });
   };
 
+  // Función para cerrar sesión
   const cerrarSesion = () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("authEmail");
@@ -44,7 +46,7 @@ export function AuthProvider({ children }) {
     usuario,
     iniciarSesion,
     cerrarSesion,
-    isAuthenticated: !!usuario, 
+    isAuthenticated: !!usuario, // ← Propiedad computada
     esAdmin: usuario?.nombre === 'admin',
     cargando, 
 
@@ -57,6 +59,7 @@ export function AuthProvider({ children }) {
   );
 }
 
+// Hook personalizado
 export function useAuthContext() {
   const context = useContext(AuthContext);
   if (!context) {
