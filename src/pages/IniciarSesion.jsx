@@ -13,19 +13,15 @@ export default function IniciarSesion() {
   const manejarEnvio = (e) => {
     e.preventDefault();
 
-
     if (formulario.nombre === "admin" && formulario.email === "1234@admin") {
       localStorage.setItem("authEmail", formulario.email);
       iniciarSesion("admin", formulario.email);
       navigate("/dashboard");
-    }
-
-    else if (
+    } else if (
       formulario.nombre &&
       formulario.email &&
       formulario.nombre !== "admin"
     ) {
-
       localStorage.setItem("authEmail", formulario.email);
       iniciarSesion(formulario.nombre, formulario.email);
 
@@ -42,40 +38,43 @@ export default function IniciarSesion() {
   };
 
   return (
-    <div>
-      <h1>Inicia sesión para continuar</h1>
+    <div className="login-container">
       <form onSubmit={manejarEnvio}>
-        <input
-          type="text"
-          placeholder="Nombre completo"
-          value={formulario.nombre}
-          onChange={(e) =>
-            setFormulario({ ...formulario, nombre: e.target.value })
-          }
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={formulario.email}
-          onChange={(e) =>
-            setFormulario({ ...formulario, email: e.target.value })
-          }
-          required
-        />
-        <button type="submit">Iniciar Sesión</button>
-        <strong> </strong>
-        <button type="button" onClick={() => navigate("/productos")}>
-          Cancelar
-        </button>
+        <img className="logoServices" src="/logogrande1.png" alt="Logo" />
+        <h1>Iniciar sesión</h1>
+        <div className="illustration" ><i class="fa-solid fa-circle-user"></i></div>
+        <div className="form-group">
+          <input
+            className="form-control"
+            type="text"
+            placeholder="Nombre completo"
+            value={formulario.nombre}
+            onChange={(e) =>
+              setFormulario({ ...formulario, nombre: e.target.value })
+            }
+            required
+          />
+        </div>
+        <div className="form-group">
+          <input
+            className="form-control"
+            type="email"
+            placeholder="Email"
+            value={formulario.email}
+            onChange={(e) =>
+              setFormulario({ ...formulario, email: e.target.value })
+            }
+            required
+          />
+        </div>
+        <div className="buttons-container">
+          <button className="btn-primary" type="submit">Iniciar Sesión</button>
+          <button className="btn-primary" type="button" onClick={() => navigate("/productos")}>
+            Cancelar
+          </button>
+        </div>
+        <a className="forgot" href="#">¿No recuerdas tus credenciales de admin? <br></br> user: admin pass: 1234@admin</a>
       </form>
-      <p style={{ marginTop: "20px", fontSize: "12px", color: "#666" }}>
-        <strong>Credenciales de prueba para Dashboard:</strong>
-        <br />
-        Nombre: admin
-        <br />
-        Email: 1234@admin
-      </p>
     </div>
   );
 }

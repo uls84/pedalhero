@@ -8,13 +8,14 @@ function EliminarProducto() {
  
   const [cargando, setCargando] = useState(false);
 
+  // Función para eliminar producto
   const eliminarProducto = async () => {
     if (!producto) return;
    
     setCargando(true);
     try {
       const respuesta = await
-      fetch(`https://68d482e3214be68f8c696ae2.mockapi.io/api/productos/${producto.id}`, {
+      fetch(`https://692e272691e00bafccd30465.mockapi.io/api/productos/${producto.id}`, {
         method: 'DELETE',
       });
      

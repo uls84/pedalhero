@@ -1,7 +1,135 @@
-.carrito {
-  display: flex;
-  height: 500px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+body {
+    font-family: 'Georgia', serif;
+    color: #333;
+    margin: 0;
+    background: #f9f6f4;
+}
+
+.carrito-container {
+    display: flex;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f9f6f4;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #A42B3D;
+    min-height: calc(100vh - 110px);
+}
+
+h1 {
+    color: #A42B3D;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+p {
+    /*line-height: 1.8;*/
+    margin-bottom: 15px;
+    text-align: justify;
+    font-size: 15px;
+    color: #444;
+}
+
+.logoCarrito {
+    height: 130px;
+    opacity: 0.7;
+    margin-bottom: 13px;
+}
+
+.cart-items {
+    width: 80%;
+    max-width: 600px;
+    margin: 35px 0;
+}
+
+.cart-item {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    color: #333;
+}
+
+.cart-total {
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+    margin: 35px 0;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.cart-total div {
+    font-size: 18px;
+    font-weight: bold;
+    color: #A42B3D;
+}
+
+.cart-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.cart-btn {
+    background: #A42B3D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.cart-btn:hover {
+    background: #8a2231;
+}
+
+.cart-btn-primary {
+    background: #A42B3D;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.cart-btn-primary:hover {
+    background: #8a2231;
+}
+
+.cart-btn-secondary {
+    background: #A42B3D;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background 0.3s;
+    margin-top: 20px;
+}
+
+.cart-btn-secondary:hover {
+    background: #8a2231;
 }

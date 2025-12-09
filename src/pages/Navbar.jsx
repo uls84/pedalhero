@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { useCartContext } from "../context/CartContext";
 import styled from "styled-components";
@@ -10,6 +10,8 @@ function Navbar() {
   const { usuario, isAuthenticated, cerrarSesion } = useAuthContext();
   const { vaciarCarrito, carrito } = useCartContext();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [busquedaNavbar, setBusquedaNavbar] = useState("");
 
   const totalItemsCarrito = carrito.reduce(
     (total, item) => total + item.cantidad,
@@ -24,15 +26,42 @@ function Navbar() {
     }, 100);
   };
 
+  const manejarBusqueda = (e) => {
+    e.preventDefault();
+    if (busquedaNavbar.trim()) {
+      navigate("/productos", { state: { busqueda: busquedaNavbar.trim() } });
+    }
+  };
+
   return (
     <>
       <NavbarContainer className="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div className="container-fluid navLogo">
-          <Logo to="/" className="navbar-brand">
-            <img className="logoGrande" src="public/logogrande1.png"></img>
-          </Logo>
+        <div className="container-fluid d-flex justify-content-between align-items-center">
+          {/* Logo a la izquierda y barra de búsqueda al lado */}
+          <div className="d-flex align-items-center">
+            <Logo to="/" className="navbar-brand me-3">
+              <img className="logoGrande" src="public/logogrande1.png"></img>
+            </Logo>
+
+            <form className="d-flex" role="search" onSubmit={manejarBusqueda}>
+              <input
+                className="form-control me-2"
+                type="search"
+                placeholder="Buscar productos..."
+                aria-label="Search"
+                style={{ width: "200px" }}
+                value={busquedaNavbar}
+                onChange={(e) => setBusquedaNavbar(e.target.value)}
+              />
+              <button className="btn btn-outline-light" type="submit">
+                Buscar
+              </button>
+            </form>
+          </div>
+
+          {/* Botón toggler para móvil */}
           <button
-            className="navbar-toggler"
+            className="navbar-toggler d-lg-none"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarContent"
@@ -43,37 +72,42 @@ function Navbar() {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse" id="navbarContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          {/* Links y usuario a la derecha */}
+          <div
+            className="collapse navbar-collapse flex-grow-0"
+            id="navbarContent"
+          >
+            <ul className="navbar-nav mb-2 mb-lg-0 justify-content-center">
               <li className="nav-item">
-                <NavLink to="/" className="nav-link">
+                <NavLink to="/" className="nav-link" isActive={location.pathname === "/"}>
                   Inicio
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/servicios" className="nav-link">
+                <NavLink to="/servicios" className="nav-link" isActive={location.pathname === "/servicios"}>
                   Servicios
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="/productos" className="nav-link">
+                <NavLink to="/productos" className="nav-link" isActive={location.pathname === "/productos"}>
                   Productos
                 </NavLink>
               </li>
               {usuario?.nombre === "admin" && (
                 <li className="nav-item">
-                  <NavLink to="/formulario-producto" className="nav-link">
+                  <NavLink to="/formulario-producto" className="nav-link" isActive={location.pathname === "/formulario-producto"}>
                     Agregar Producto
                   </NavLink>
                 </li>
               )}
             </ul>
 
-            <SeccionUsuario className="d-flex align-items-center gap-3">
+            <SeccionUsuario className="d-flex align-items-center gap-3 ms-3">
               <ContenedorCarrito>
                 <IconoCarrito
                   to="/pagar"
                   className="nav-link d-flex align-items-center"
+                  isActive={location.pathname === "/pagar"}
                 >
                   <span className="me-1">Carrito</span>
                   <FaShoppingCart />
@@ -88,7 +122,7 @@ function Navbar() {
                   <Bienvenida>Hola, {usuario.nombre}</Bienvenida>
 
                   {usuario.nombre === "admin" && (
-                    <NavLinkAdmin to="/dashboard" className="nav-link">
+                    <NavLinkAdmin to="/dashboard" className="nav-link" isActive={location.pathname === "/dashboard"}>
                       Dashboard
                     </NavLinkAdmin>
                   )}
@@ -101,7 +135,7 @@ function Navbar() {
                   </BotonCerrarSesion>
                 </ContenedorUsuario>
               ) : (
-                <NavLink to="/iniciar-sesion" className="nav-link">
+                <NavLink to="/iniciar-sesion" className="nav-link" isActive={location.pathname === "/iniciar-sesion"}>
                   Iniciar Sesión
                 </NavLink>
               )}
@@ -118,24 +152,22 @@ export default Navbar;
 
 const NavbarContainer = styled.nav`
   background-color: #422134 !important;
-  padding: 2rem 2rem;
+  padding: 0.5rem 2rem;
 `;
 
-
 const NavbarSpacer = styled.div`
-  height: 80px;
+  height: 70px;
 
   @media (max-width: 991.98px) {
-    height: 76px;
+    height: 66px;
   }
 `;
 
-const logoGrande =styled(Link)`
-height: 100px;
-float: left;
-background-color: #422134;
-`
-
+const logoGrande = styled(Link)`
+  height: 100px;
+  float: left;
+  background-color: #422134;
+`;
 
 const Logo = styled(Link)`
   color: white !important;
@@ -149,24 +181,24 @@ const Logo = styled(Link)`
 `;
 
 const NavLink = styled(Link)`
-  color: white !important;
+  color: ${props => props.isActive ? '#ffc107' : 'white'} !important;
   text-decoration: none;
   padding: 0.5rem 1rem;
 
   &:hover {
-    color: white !important;
+    color: ${props => props.isActive ? '#ffc107' : 'white'} !important;
     text-decoration: underline;
   }
 `;
 
 const NavLinkAdmin = styled(Link)`
-  color: black !important;
+  color: ${props => props.isActive ? '#ffc107' : 'white'} !important;
   text-decoration: none;
   padding: 0.5rem 1rem;
   font-weight: bold;
 
   &:hover {
-    color: gold !important;
+    color: ${props => props.isActive ? '#ffc107' : 'gold'} !important;
     text-decoration: underline;
   }
 `;
@@ -192,8 +224,8 @@ const BotonCerrarSesion = styled.button`
   white-space: nowrap;
 
   &:hover {
-    background: white;
-    color: #556b2f;
+    background: #dc3545;
+    color: white;
   }
 
   @media (max-width: 991.98px) {
@@ -209,7 +241,7 @@ const ContenedorCarrito = styled.div`
 `;
 
 const IconoCarrito = styled(Link)`
-  color: white !important;
+  color: ${props => props.isActive ? '#ffc107' : 'white'} !important;
   text-decoration: none;
   padding: 0.5rem;
   display: flex;
@@ -219,7 +251,7 @@ const IconoCarrito = styled(Link)`
   gap: 5px;
 
   &:hover {
-    color: gold !important;
+    color: ${props => props.isActive ? '#ffc107' : 'white'} !important;
   }
 `;
 
