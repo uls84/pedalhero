@@ -12,6 +12,11 @@ export default function Pagar() {
 
   const tokenActual = localStorage.getItem('authToken');
 
+  // Función para formatear precios en formato argentino
+  const formatearPrecio = (precio) => {
+    return Math.round(Number(precio)).toLocaleString('es-AR');
+  };
+
 
   // Función para finalizar compra
   const comprar = () => {
@@ -53,15 +58,15 @@ export default function Pagar() {
                     <img src={producto.avatar} alt={producto.nombre} width="100" />
                     <div>
                       <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#28a745' }}>{producto.nombre}</div>
-                      <div>Precio unidad: ${Number(precioUnitario).toFixed(3)}</div>
+                      <div>Precio unidad: ${formatearPrecio(precioUnitario)}</div>
                       <div>Cantidad: {cantidad}</div>
-                      <div><strong>Subtotal: ${Number(subtotal).toFixed(3)}</strong></div>
+                      <div><strong>Subtotal: ${formatearPrecio(subtotal)}</strong></div>
                     </div>
                   </div>
                 );
               })}
               <hr />
-              <h3 style={{ fontSize: '20px', fontWeight: 'bold', color: '#333', background: '#f9f6f4', padding: '15px', borderRadius: '10px' }}>Total a pagar: ${Number(total).toFixed(3)}</h3>
+              <h3 style={{ fontSize: '20px', fontWeight: 'bold', color: '#333', background: '#f9f6f4', padding: '15px', borderRadius: '10px' }}>Total a pagar: ${formatearPrecio(total)}</h3>
 
               <div style={{ margin: "20px 0", display: 'flex', justifyContent: 'center', gap: '10px' }}>
                 <button

@@ -8,19 +8,10 @@ const ProductoDetalle = () => {
     const location = useLocation();
     const producto = location.state?.producto;
 
-    // if (!producto) {
-    //     return (
-    //         <div className="services-container">
-    //             <div className="alert alert-warning">
-    //                 <h4>Producto no encontrado</h4>
-    //                 <p>No se pudo cargar la información del producto</p>
-    //                 <Link to="/carrito" className="btn btn-primary">
-    //                     Volver a Productos
-    //                 </Link>
-    //             </div>
-    //         </div>
-    //     );
-    // }
+    // Función para formatear precios en formato argentino
+    const formatearPrecio = (precio) => {
+        return Math.round(Number(precio)).toLocaleString('es-AR');
+    };
 
     return (
         <div className="services-container">
@@ -52,7 +43,7 @@ const ProductoDetalle = () => {
 
                         <div style={{ marginBottom: "30px" }}>
                             <strong style={{ color: "#A42B3D", fontSize: "1.1rem", marginBottom: "10px", display: "block" }}>Precio:</strong>
-                            <h5 style={{ color: "#A42B3D", fontSize: "1.5rem", fontWeight: "bold", margin: "0" }}>${producto.precio}</h5>
+                            <h5 style={{ color: "#A42B3D", fontSize: "1.5rem", fontWeight: "bold", margin: "0" }}>${formatearPrecio(producto.precio)}</h5>
                         </div>
                     </div>
 

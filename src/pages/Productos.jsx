@@ -13,6 +13,11 @@ export default function Productos() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Función para formatear precios en formato argentino
+  const formatearPrecio = (precio) => {
+    return Math.round(Number(precio)).toLocaleString('es-AR');
+  };
+
   const [busqueda, setBusqueda] = useState("");
   const [paginaActual, setPaginaActual] = useState(1);
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
@@ -177,7 +182,7 @@ export default function Productos() {
                         {producto.descripcion}
                       </p>
                       <p className="card-text fw-bold text-dark">
-                        ${producto.precio.toLocaleString('es-ES')}
+                        ${formatearPrecio(producto.precio)}
                       </p>
 
                       <div className="mt-auto">
