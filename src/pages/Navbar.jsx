@@ -49,7 +49,7 @@ function Navbar() {
                 type="search"
                 placeholder="Buscar productos..."
                 aria-label="Search"
-                style={{ width: "200px" }}
+                style={{ width: "150px" }}
                 value={busquedaNavbar}
                 onChange={(e) => {
                   const value = e.target.value;
@@ -84,7 +84,7 @@ function Navbar() {
             className="collapse navbar-collapse flex-grow-0"
             id="navbarContent"
           >
-            <ul className="navbar-nav mb-2 mb-lg-0 justify-content-center">
+            <ul className="navbar-nav mb-2 mb-lg-0 justify-content-center d-flex flex-row">
               <li className="nav-item">
                 <NavLink to="/" className="nav-link" isActive={location.pathname === "/"}>
                   Inicio
@@ -109,38 +109,42 @@ function Navbar() {
               )}
             </ul>
 
-            <SeccionUsuario className="d-flex align-items-center gap-3 ms-3">
-              <ContenedorCarrito>
-                <IconoCarrito
-                  to="/pagar"
-                  className="nav-link d-flex align-items-center"
-                  isActive={location.pathname === "/pagar"}
-                >
-                  <span className="me-1">Carrito</span>
-                  <FaShoppingCart />
-                  {totalItemsCarrito > 0 && (
-                    <ContadorCarrito>{totalItemsCarrito}</ContadorCarrito>
-                  )}
-                </IconoCarrito>
-              </ContenedorCarrito>
+            <SeccionUsuario className="d-flex flex-column align-items-center">
+              <div className="d-flex justify-content-center align-items-center gap-3 mb-2">
+                <ContenedorCarrito>
+                  <IconoCarrito
+                    to="/pagar"
+                    className="nav-link d-flex align-items-center"
+                    isActive={location.pathname === "/pagar"}
+                  >
+                    <span className="me-1">Carrito</span>
+                    <FaShoppingCart />
+                    {totalItemsCarrito > 0 && (
+                      <ContadorCarrito>{totalItemsCarrito}</ContadorCarrito>
+                    )}
+                  </IconoCarrito>
+                </ContenedorCarrito>
+
+                {usuario?.nombre === "admin" && (
+                  <NavLinkAdmin to="/dashboard" className="nav-link" isActive={location.pathname === "/dashboard"}>
+                    Dashboard
+                  </NavLinkAdmin>
+                )}
+              </div>
 
               {isAuthenticated ? (
-                <ContenedorUsuario className="d-flex align-items-center gap-3">
-                  <Bienvenida>Hola, {usuario.nombre}</Bienvenida>
-
-                  {usuario.nombre === "admin" && (
-                    <NavLinkAdmin to="/dashboard" className="nav-link" isActive={location.pathname === "/dashboard"}>
-                      Dashboard
-                    </NavLinkAdmin>
-                  )}
+                <div className="w-100">
+                  <div className="text-center mb-2">
+                    <Bienvenida>Hola, {usuario.nombre}</Bienvenida>
+                  </div>
 
                   <BotonCerrarSesion
                     onClick={manejarCerrarSesion}
-                    className="btn btn-outline-light btn-sm"
+                    className="btn btn-outline-light w-100"
                   >
                     Cerrar Sesión
                   </BotonCerrarSesion>
-                </ContenedorUsuario>
+                </div>
               ) : (
                 <NavLink to="/iniciar-sesion" className="nav-link" isActive={location.pathname === "/iniciar-sesion"}>
                   Iniciar Sesión
@@ -160,6 +164,10 @@ export default Navbar;
 const NavbarContainer = styled.nav`
   background-color: #422134 !important;
   padding: 0.5rem 2rem;
+
+  @media (max-width: 991.98px) {
+    padding-left: 0.5rem;
+  }
 `;
 
 const NavbarSpacer = styled.div`
@@ -215,10 +223,6 @@ const Bienvenida = styled.span`
   font-size: 0.9rem;
   margin: 0;
   white-space: nowrap;
-
-  @media (max-width: 991.98px) {
-    margin-bottom: 0.5rem;
-  }
 `;
 
 const BotonCerrarSesion = styled.button`
@@ -233,11 +237,6 @@ const BotonCerrarSesion = styled.button`
   &:hover {
     background: #dc3545;
     color: white;
-  }
-
-  @media (max-width: 991.98px) {
-    width: 100%;
-    margin-top: 0.5rem;
   }
 `;
 
@@ -281,24 +280,11 @@ const ContadorCarrito = styled.span`
 const SeccionUsuario = styled.div`
   display: flex;
   gap: 1rem;
-  align-items: center;
-
-  @media (max-width: 991.98px) {
-    flex-direction: column;
-    gap: 0.5rem;
-    margin-top: 1rem;
-    width: 100%;
-  }
+  align-items-center;
 `;
 
 const ContenedorUsuario = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-
-  @media (max-width: 991.98px) {
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 100%;
-  }
 `;

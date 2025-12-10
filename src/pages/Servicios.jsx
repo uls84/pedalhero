@@ -85,7 +85,7 @@ function Servicios() {
           </button>
         </div>
       </div>
-      <Link to="/">
+      <Link to="/" className="d-block mb-4">
         <button>Volver al Inicio</button>
       </Link>
     </div>

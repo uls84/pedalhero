@@ -21,8 +21,8 @@ const ProductoDetalle = () => {
     };
 
     return (
-        <div className="services-container">
-            <div className="d-flex flex-column flex-md-row align-items-start gap-4 w-100">
+        <div className="services-container text-center">
+            <div className="d-flex flex-column flex-md-row align-items-center gap-4 w-100">
                 {/* Columna para la imagen - IZQUIERDA */}
                 <div className="flex-shrink-0" style={{ flex: '0 0 40%' }}>
                     <img
@@ -54,14 +54,14 @@ const ProductoDetalle = () => {
                         </div>
                     </div>
 
-                    <div className="mt-auto d-flex gap-3">
+                    <div className="mt-auto d-flex gap-3 justify-content-center mb-4">
                         <button
                             onClick={manejarAgregarAlCarrito}
                             style={{
                                 backgroundColor: "#28a745",
                                 color: "white",
                                 border: "none",
-                                padding: "12px 30px",
+                                padding: "15px 40px",
                                 borderRadius: "5px",
                                 fontSize: "1rem",
                                 cursor: "pointer",
@@ -78,7 +78,7 @@ const ProductoDetalle = () => {
                                 backgroundColor: "#A42B3D",
                                 color: "white",
                                 border: "none",
-                                padding: "12px 30px",
+                                padding: "15px 40px",
                                 borderRadius: "5px",
                                 fontSize: "1rem",
                                 textDecoration: "none",

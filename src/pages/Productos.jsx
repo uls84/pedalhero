@@ -23,6 +23,7 @@ export default function Productos() {
   const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
   const [precioMin, setPrecioMin] = useState("");
   const [precioMax, setPrecioMax] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     document.title = "Tienda de Juegos de Mesa | Productos";
@@ -115,29 +116,34 @@ export default function Productos() {
 
   return (
     <>
-      <div className="container mt-4">
+      <div className="container mt-4 px-2">
+        <div className="d-flex justify-content-end mb-3 d-block d-md-none">
+          <button className="btn" style={{ backgroundColor: 'transparent', borderColor: '#422134', color: '#422134' }} onClick={() => setShowFilters(!showFilters)}>
+            {showFilters ? 'Ocultar Filtros' : 'Mostrar Filtros'}
+          </button>
+        </div>
         <div className="row">
-          <div className="col-md-3" style={{ padding: '30px 30px 30px 0' }}>
-            <h5>Filtros</h5>
-            <div className="mb-3">
-              <label className="form-label">Categoría</label>
-              <select value={categoriaSeleccionada} onChange={e => {setCategoriaSeleccionada(e.target.value); setPaginaActual(1);}} className="form-select">
+          <div className={`col-10 col-md-3 ms-auto ${showFilters ? 'd-block' : 'd-none d-md-block'}`} style={{ padding: '20px 15px 20px 10px' }}>
+            <h6 className="text-center">Filtros</h6>
+            <div className="mb-3 px-2">
+              <label className="form-label small">Categoría</label>
+              <select value={categoriaSeleccionada} onChange={e => {setCategoriaSeleccionada(e.target.value); setPaginaActual(1);}} className="form-select form-select-sm">
                 <option value="">Todas</option>
                 {categorias.map(cat => <option key={cat} value={cat}>{cat}</option>)}
               </select>
             </div>
-            <div className="mb-3">
-              <label className="form-label">Precio Mínimo</label>
-              <input type="number" value={precioMin} onChange={e => {setPrecioMin(e.target.value); setPaginaActual(1);}} className="form-control" />
+            <div className="mb-3 px-2">
+              <label className="form-label small">Precio Mínimo</label>
+              <input type="number" value={precioMin} onChange={e => {setPrecioMin(e.target.value); setPaginaActual(1);}} className="form-control form-control-sm" />
             </div>
-            <div className="mb-3">
-              <label className="form-label">Precio Máximo</label>
-              <input type="number" value={precioMax} onChange={e => {setPrecioMax(e.target.value); setPaginaActual(1);}} className="form-control" />
+            <div className="mb-3 px-2">
+              <label className="form-label small">Precio Máximo</label>
+              <input type="number" value={precioMax} onChange={e => {setPrecioMax(e.target.value); setPaginaActual(1);}} className="form-control form-control-sm" />
             </div>
-            <button onClick={() => {setCategoriaSeleccionada(""); setPrecioMin(""); setPrecioMax(""); setPaginaActual(1);}} className="btn btn-secondary">Limpiar Filtros</button>
+            <button onClick={() => {setCategoriaSeleccionada(""); setPrecioMin(""); setPrecioMax(""); setPaginaActual(1);}} className="btn btn-sm" style={{ backgroundColor: '#422134', borderColor: '#422134', color: 'white' }}>Limpiar Filtros</button>
 
             {productosFiltrados.length > productosPorPagina && (
-              <div className="d-flex justify-content-start mt-5 mb-4">
+              <div className="d-flex justify-content-start mt-5 mb-4 d-none d-md-flex">
                 {Array.from({ length: totalPaginas }, (_, index) => (
                   <button
                     key={index + 1}
@@ -156,7 +162,7 @@ export default function Productos() {
             )}
 
             {productosFiltrados.length > 0 && (
-              <div className="text-center text-muted mt-2">
+              <div className="text-center text-muted mt-2 d-none d-md-block">
                 <small>
                   Mostrando {productosActuales.length} productos (página{" "}
                   {paginaActual} de {totalPaginas})
@@ -167,7 +173,7 @@ export default function Productos() {
           <div className="col-md-9">
             <div className="row">
               {productosActuales.map((producto) => (
-                <div key={producto.id} className="col-12 col-md-6 col-lg-4 mb-4">
+                <div key={producto.id} className="col-6 col-md-6 col-lg-4 mb-4">
                   <div className="card" style={{ borderColor: "#A42B3D" }}>
                     <img
                       src={producto.avatar}
@@ -231,6 +237,34 @@ export default function Productos() {
             </div>
           </div>
         </div>
+
+        {productosFiltrados.length > productosPorPagina && (
+          <div className="d-flex justify-content-center mt-4 mb-4 d-block d-md-none">
+            {Array.from({ length: totalPaginas }, (_, index) => (
+              <button
+                key={index + 1}
+                className="btn mx-1"
+                style={
+                  paginaActual === index + 1
+                    ? { backgroundColor: "#A42B3D", color: "white", borderColor: "#A42B3D" }
+                    : { backgroundColor: "transparent", color: "#A42B3D", borderColor: "#A42B3D" }
+                }
+                onClick={() => cambiarPagina(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {productosFiltrados.length > 0 && (
+          <div className="text-center text-muted mt-2 mb-3 d-block d-md-none">
+            <small>
+              Mostrando {productosActuales.length} productos (página{" "}
+              {paginaActual} de {totalPaginas})
+            </small>
+          </div>
+        )}
       </div>
     </>
   );
