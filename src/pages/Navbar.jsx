@@ -81,57 +81,45 @@ function Navbar() {
 
           {/* Links y usuario a la derecha */}
           <div
-            className="collapse navbar-collapse flex-grow-0"
+            className="collapse navbar-collapse d-lg-flex justify-content-lg-end"
             id="navbarContent"
           >
-            <ul className="navbar-nav mb-2 mb-lg-0 justify-content-center d-flex flex-row">
-              <li className="nav-item">
-                <NavLink to="/" className="nav-link" isActive={location.pathname === "/"}>
-                  Inicio
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/servicios" className="nav-link" isActive={location.pathname === "/servicios"}>
-                  Servicios
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/productos" className="nav-link" isActive={location.pathname === "/productos"}>
-                  Productos
-                </NavLink>
-              </li>
+            <div className="d-flex flex-column d-lg-flex flex-lg-row justify-content-center gap-3 mb-2">
+              <NavLink to="/" className="nav-link" isActive={location.pathname === "/"}>
+                Inicio
+              </NavLink>
+              <NavLink to="/servicios" className="nav-link" isActive={location.pathname === "/servicios"}>
+                Servicios
+              </NavLink>
+              <NavLink to="/productos" className="nav-link" isActive={location.pathname === "/productos"}>
+                Productos
+              </NavLink>
+              <ContenedorCarrito>
+                <IconoCarrito
+                  to="/pagar"
+                  className="nav-link d-flex align-items-center"
+                  isActive={location.pathname === "/pagar"}
+                >
+                  <span className="me-1">Carrito</span>
+                  <FaShoppingCart />
+                  {totalItemsCarrito > 0 && (
+                    <ContadorCarrito>{totalItemsCarrito}</ContadorCarrito>
+                  )}
+                </IconoCarrito>
+              </ContenedorCarrito>
               {usuario?.nombre === "admin" && (
-                <li className="nav-item">
-                  <NavLink to="/formulario-producto" className="nav-link" isActive={location.pathname === "/formulario-producto"}>
-                    Agregar Producto
-                  </NavLink>
-                </li>
+                <NavLink to="/formulario-producto" className="nav-link" isActive={location.pathname === "/formulario-producto"}>
+                  Agregar Producto
+                </NavLink>
               )}
-            </ul>
+              {usuario?.nombre === "admin" && (
+                <NavLinkAdmin to="/dashboard" className="nav-link" isActive={location.pathname === "/dashboard"}>
+                  Dashboard
+                </NavLinkAdmin>
+              )}
+            </div>
 
             <SeccionUsuario className="d-flex flex-column align-items-center">
-              <div className="d-flex justify-content-center align-items-center gap-3 mb-2">
-                <ContenedorCarrito>
-                  <IconoCarrito
-                    to="/pagar"
-                    className="nav-link d-flex align-items-center"
-                    isActive={location.pathname === "/pagar"}
-                  >
-                    <span className="me-1">Carrito</span>
-                    <FaShoppingCart />
-                    {totalItemsCarrito > 0 && (
-                      <ContadorCarrito>{totalItemsCarrito}</ContadorCarrito>
-                    )}
-                  </IconoCarrito>
-                </ContenedorCarrito>
-
-                {usuario?.nombre === "admin" && (
-                  <NavLinkAdmin to="/dashboard" className="nav-link" isActive={location.pathname === "/dashboard"}>
-                    Dashboard
-                  </NavLinkAdmin>
-                )}
-              </div>
-
               {isAuthenticated ? (
                 <div className="w-100">
                   <div className="text-center mb-2">
