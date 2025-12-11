@@ -67,7 +67,7 @@ function Servicios() {
         <h2>Nuestra Selección de Productos</h2>
         <div className="slider" onClick={() => navigate(`/productos/${productos[currentIndex].id}`, { state: { producto: productos[currentIndex] } })}>
           <img
-            className="slider-image"
+            className="slider-image w-100 object-fit-contain"
             src={productImages[currentIndex]}
             alt={`Producto ${currentIndex + 1}`}
             style={{ opacity }}

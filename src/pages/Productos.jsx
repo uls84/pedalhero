@@ -4,7 +4,7 @@ import { useCartContext } from "../context/CartContext";
 import { useAuthContext } from "../context/AuthContext";
 import { useProducts } from "../context/ProductsContext";
 import { useEffect, useState } from "react";
-import "../css/Servicios.css";
+import "../css/Productos.css";
 
 export default function Productos() {
   const { productos, cargando, error } = useProducts();
@@ -123,7 +123,7 @@ export default function Productos() {
           </button>
         </div>
         <div className="row">
-          <div className={`col-10 col-md-3 ms-auto ${showFilters ? 'd-block' : 'd-none d-md-block'}`} style={{ padding: '20px 15px 20px 10px' }}>
+          <div className={`col-10 col-md-3 mx-auto ${showFilters ? 'd-block' : 'd-none d-md-block'}`} style={{ padding: '20px 15px 20px 10px' }}>
             <h6 className="text-center">Filtros</h6>
             <div className="mb-3 px-2">
               <label className="form-label small">Categoría</label>
@@ -179,7 +179,7 @@ export default function Productos() {
                       src={producto.avatar}
                       alt={producto.nombre}
                       className="card-img-top"
-                      style={{ height: "100px", objectFit: "cover" }}
+                      style={{ height: "200px", objectFit: "contain" }}
                     />
 
                     <div className="card-body d-flex flex-column" style={{ padding: '0.5rem' }}>
