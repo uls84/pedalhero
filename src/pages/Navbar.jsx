@@ -119,22 +119,19 @@ function Navbar() {
               )}
             </div>
 
-            <SeccionUsuario className="d-flex flex-column align-items-center">
+            <SeccionUsuario className="d-flex flex-row align-items-center">
               {isAuthenticated ? (
-                <div className="w-100">
-                  <div className="text-center mb-2">
-                    <Bienvenida>Hola, {usuario.nombre}</Bienvenida>
-                  </div>
-
+                <>
+                  <Bienvenida>Hola, {usuario.nombre}</Bienvenida>
                   <BotonCerrarSesion
                     onClick={manejarCerrarSesion}
-                    className="btn btn-outline-light w-100"
+                    className="btn btn-outline-light"
                   >
                     Cerrar Sesión
                   </BotonCerrarSesion>
-                </div>
+                </>
               ) : (
-                <NavLink to="/iniciar-sesion" className="nav-link" isActive={location.pathname === "/iniciar-sesion"}>
+                <NavLink to="/iniciar-sesion" className="nav-link login-button" isActive={location.pathname === "/iniciar-sesion"}>
                   Iniciar Sesión
                 </NavLink>
               )}
@@ -166,11 +163,6 @@ const NavbarSpacer = styled.div`
   }
 `;
 
-const logoGrande = styled(Link)`
-  height: 100px;
-  float: left;
-  background-color: #422134;
-`;
 
 const Logo = styled(Link)`
   color: white !important;
