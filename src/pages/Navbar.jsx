@@ -122,9 +122,8 @@ function Navbar() {
             <SeccionUsuario className="d-flex flex-row align-items-center">
               {isAuthenticated ? (
                 <>
-                  <Bienvenida isAdmin={usuario.nombre === 'admin'}>{usuario.nombre}</Bienvenida>
+                  <Bienvenida>Hola, {usuario.nombre}</Bienvenida>
                   <BotonCerrarSesion
-                    isAdmin={usuario.nombre === 'admin'}
                     onClick={manejarCerrarSesion}
                     className="btn btn-outline-light"
                   >
@@ -204,7 +203,7 @@ const Bienvenida = styled.span`
   font-size: 0.9rem;
   margin: 0;
   white-space: nowrap;
-  margin-top: ${props => props.isAdmin ? '-6px' : '0'};
+  margin-top: -6px;
 `;
 
 const BotonCerrarSesion = styled.button`
@@ -215,7 +214,7 @@ const BotonCerrarSesion = styled.button`
   padding: 0.5rem 1rem;
   cursor: pointer;
   white-space: nowrap;
-  margin-top: ${props => props.isAdmin ? '-6px' : '0'};
+  margin-top: -6px;
 
   &:hover {
     background: #dc3545;
