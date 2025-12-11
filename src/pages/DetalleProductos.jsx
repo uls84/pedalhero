@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { useCartContext } from "../context/CartContext";
+import { useCartContext } from "../context/useCartContext";
 import "../css/Servicios.css";
 
 

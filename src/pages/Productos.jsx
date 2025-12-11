@@ -1,6 +1,6 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import CarritoCompras from "./Carrito";
-import { useCartContext } from "../context/CartContext";
+import { useCartContext } from "../context/useCartContext";
 import { useAuthContext } from "../context/AuthContext";
 import { useProducts } from "../context/ProductsContext";
 import { useEffect, useState } from "react";

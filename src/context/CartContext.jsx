@@ -1,8 +1,6 @@
-import React, { createContext, useContext, useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { toast } from "react-toastify";
-
-// Crear el contexto
-export const CartContext = createContext();
+import { CartContext } from "./useCartContext";
 
 // Proveedor del contexto
 export function CartProvider({ children }) {
@@ -28,10 +26,10 @@ useEffect(() => {
 }, [carrito, cargaCompleta]);
 
   // Funciones para el carrito
-const agregarAlCarrito = (producto) => {
+  const agregarAlCarrito = useCallback((producto) => {
     setCarrito(prevCarrito => {
       const productoExistente = prevCarrito.find(item => item.id === producto.id);
-     
+
       if (productoExistente) {
         return prevCarrito.map(item =>
           item.id === producto.id
@@ -45,17 +43,17 @@ const agregarAlCarrito = (producto) => {
     toast.success(`Producto ${producto.nombre} agregado.`, {
       style: { background: '#28a745', color: 'white' }
     });
-  };
+  }, []);
 
-  const vaciarCarrito = () => {
+  const vaciarCarrito = useCallback(() => {
     setCarrito([]);
-  };
+  }, []);
 
-  const eliminarDelCarrito = (productoId) => {
+  const eliminarDelCarrito = useCallback((productoId) => {
     setCarrito(carrito.filter(item => item.id !== productoId));
-  };
+  }, [carrito]);
 
-   const quitarCantidad = (idProducto) => {
+  const quitarCantidad = useCallback((idProducto) => {
     const carritoActualizado = carrito.map(producto => {
       if (producto.id === idProducto) {
         const cantidadActual = producto.cantidad || 1;
@@ -67,11 +65,10 @@ const agregarAlCarrito = (producto) => {
       return producto;
     }).filter(producto => producto !== null);
 
-
     setCarrito(carritoActualizado);
-  };
+  }, [carrito]);
 
-    const agregarCantidad = (idProducto) => {
+  const agregarCantidad = useCallback((idProducto) => {
     const nuevoCarrito = carrito.map(producto => {
       if (producto.id === idProducto) {
         return {
@@ -82,40 +79,34 @@ const agregarAlCarrito = (producto) => {
       return producto;
     });
     setCarrito(nuevoCarrito);
-  };
+  }, [carrito]);
 
-  const total = carrito.reduce((sum, item) => {
-    const cantidad = item.cantidad || 1;
-    return sum + (Number(item.precio) * cantidad);
-  }, 0);
- 
   // Valor que se provee a todos los componentes
-  const value = useMemo(() => ({
-    // Carrito
-    carrito,
-    agregarAlCarrito,
-    vaciarCarrito,
-    eliminarDelCarrito,
+  const value = useMemo(() => {
+    const total = carrito.reduce((sum, item) => {
+      const cantidad = item.cantidad || 1;
+      return sum + (Number(item.precio) * cantidad);
+    }, 0);
 
-    // f(x) de Cantidad
-    agregarCantidad,
-    quitarCantidad,
+    return {
+      // Carrito
+      carrito,
+      agregarAlCarrito,
+      vaciarCarrito,
+      eliminarDelCarrito,
 
-    // f(x) total
-    total
-  }), [carrito, total]);
+      // f(x) de Cantidad
+      agregarCantidad,
+      quitarCantidad,
+
+      // f(x) total
+      total
+    };
+  }, [carrito, agregarAlCarrito, vaciarCarrito, eliminarDelCarrito, quitarCantidad, agregarCantidad]);
 
   return (
     <CartContext.Provider value={value}>
       {children}
     </CartContext.Provider>
   );
-}
-
-export function useCartContext() {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error("useCartContext debe usarse dentro de CartProvider");
-  }
-  return context;
 }

@@ -1,6 +1,6 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import CarritoCompras from "./Carrito";
-import { useCartContext } from "../context/CartContext";
+import { useCartContext } from "../context/useCartContext";
 import { useAuthContext } from "../context/AuthContext";
 import { useProducts } from "../context/ProductsContext";
 import { useEffect, useState } from "react";
@@ -93,7 +93,7 @@ export default function Productos() {
     <>
       <div className="container mt-4">
         {/* Barra de búsqueda */}
-        {/*<div className="row mb-4">
+        <div className="row mb-4">
           <div className="col-12 col-md-6">
             <label className="form-label fw-bold">Buscar productos</label>
             <input
@@ -110,7 +110,6 @@ export default function Productos() {
             )}
           </div>
         </div>
-        */}
 
         <div className="row">
           {productosActuales.map((producto) => (

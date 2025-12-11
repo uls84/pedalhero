@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useCartContext } from "../context/CartContext";
+import { useCartContext } from "../context/useCartContext";
 import "../css/Carrito.css";
 
 export default function CarritoCompras() {

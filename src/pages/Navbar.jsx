@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-import { useCartContext } from "../context/CartContext";
+import { useCartContext } from "../context/useCartContext";
 import styled from "styled-components";
 import { FaShoppingCart } from "react-icons/fa";
 import "../css/Navbar.css";
@@ -40,7 +40,8 @@ function Navbar() {
           {/* Logo a la izquierda y barra de búsqueda al lado */}
           <div className="d-flex align-items-center">
             <Logo to="/" className="navbar-brand me-3">
-              <img className="logoGrande" src="../public/logogrande1.png"></img>
+              <img className="logoGrande" src="/logogrande1.png"></img> 
+              <img className="logoGrande" src="../public/logogrande1.png"></img> 
             </Logo>
 
             <form className="d-flex" role="search" onSubmit={manejarBusqueda}>

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from '../context/AuthContext';
-import { useCartContext } from '../context/CartContext';
+import { useCartContext } from '../context/useCartContext';
 import { toast } from "react-toastify";
 import "../css/Servicios.css";
 
