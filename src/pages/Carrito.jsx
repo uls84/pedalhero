@@ -15,7 +15,7 @@ export default function CarritoCompras() {
   return (
     <div className="carrito-container">
       <img className="logoCarrito" src="/logogrande1.png" alt="Logo" />
-      <h1>Carrito de Compras</h1>
+      <h1 style={{ color: "rgb(164, 43, 61)" }}>Carrito de Compras</h1>
       {carrito.length === 0 ? (
         <p>El carrito está vacío</p>
       ) : (
@@ -24,7 +24,7 @@ export default function CarritoCompras() {
             {carrito.map((item) => (
               <div key={item.id} className="cart-item">
                 <div className="item-info">
-                  {item.nombre} - ${Number(item.precio).toFixed(3)}
+                  <span style={{ color: "rgb(164, 43, 61)" }}>{item.nombre}</span> - ${Number(item.precio).toFixed(3)}
                 </div>
                 <div className="item-controls">
                   <span>Cantidad: {item.cantidad || 1}</span>

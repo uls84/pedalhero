@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useCartContext } from "../context/useCartContext";
-import "../css/Servicios.css";
+import "../css/DetalleProductos.css";
 
 
 const ProductoDetalle = () => {
@@ -48,43 +48,20 @@ const ProductoDetalle = () => {
 
                         <div style={{ marginBottom: "15px", backgroundColor: "rgba(164, 43, 61, 0.1)", padding: "10px", borderRadius: "8px" }}>
                             <strong style={{ color: "#A42B3D", fontSize: "1.1rem", marginBottom: "3px", display: "block" }}>Precio:</strong>
-                            <h5 style={{ color: "#A42B3D", fontSize: "1.5rem", fontWeight: "bold", margin: "0" }}>${formatearPrecio(producto.precio)}</h5>
+                            <h5 style={{ color: "black", fontSize: "1.5rem", fontWeight: "bold", margin: "0" }}>${formatearPrecio(producto.precio)}</h5>
                         </div>
                     </div>
 
                     <div className="mt-auto d-flex gap-3 justify-content-start mb-4">
                         <button
+                            className="btn-comprar"
                             onClick={manejarAgregarAlCarrito}
-                            style={{
-                                backgroundColor: "#28a745",
-                                color: "white",
-                                border: "none",
-                                padding: "15px 40px",
-                                borderRadius: "5px",
-                                fontSize: "1rem",
-                                cursor: "pointer",
-                                transition: "background-color 0.3s"
-                            }}
-                            onMouseOver={(e) => e.target.style.backgroundColor = "#218838"}
-                            onMouseOut={(e) => e.target.style.backgroundColor = "#28a745"}
                         >
                             Comprar Producto
                         </button>
                         <Link
+                            className="btn-volver"
                             to={`/productos`}
-                            style={{
-                                backgroundColor: "#A42B3D",
-                                color: "white",
-                                border: "none",
-                                padding: "15px 40px",
-                                borderRadius: "5px",
-                                fontSize: "1rem",
-                                textDecoration: "none",
-                                display: "inline-block",
-                                transition: "background-color 0.3s"
-                            }}
-                            onMouseOver={(e) => e.target.style.backgroundColor = "#8a2231"}
-                            onMouseOut={(e) => e.target.style.backgroundColor = "#A42B3D"}
                         >
                             Volver a Productos
                         </Link>

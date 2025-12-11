@@ -181,7 +181,7 @@ export default function Productos() {
                     />
 
                     <div className="card-body d-flex flex-column" style={{ padding: '0.5rem' }}>
-                      <h5 className="card-title">{producto.nombre}</h5>
+                      <h5 className="card-title" style={{ color: "rgb(164, 43, 61)" }}>{producto.nombre}</h5>
                       <p className="card-text flex-grow-1" style={{ fontSize: '0.9rem' }}>
                         {producto.descripcion}
                       </p>

@@ -154,3 +154,6 @@ p {
   object-fit: contain;
 }
 
+.card-title {
+  color: rgb(164, 43, 61);
+}

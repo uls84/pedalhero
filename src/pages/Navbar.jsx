@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { useCartContext } from "../context/useCartContext";
@@ -32,6 +32,13 @@ function Navbar() {
       navigate("/productos", { state: { busqueda: busquedaNavbar.trim() } });
     }
   };
+
+  useEffect(() => {
+    const navbarContent = document.getElementById('navbarContent');
+    if (navbarContent && window.innerWidth < 992) {
+      navbarContent.classList.remove('show');
+    }
+  }, [location]);
 
   return (
     <>
@@ -84,7 +91,7 @@ function Navbar() {
             className="collapse navbar-collapse d-lg-flex justify-content-lg-end"
             id="navbarContent"
           >
-            <div className="d-flex flex-column d-lg-flex flex-lg-row justify-content-center gap-3 mb-2">
+            <div className="d-flex flex-column align-items-start d-lg-flex flex-lg-row justify-content-center gap-3 mb-2">
               <NavLink to="/" className="nav-link" isActive={location.pathname === "/"}>
                 Inicio
               </NavLink>
@@ -122,7 +129,7 @@ function Navbar() {
             <SeccionUsuario className="d-flex flex-row align-items-center">
               {isAuthenticated ? (
                 <>
-                  <Bienvenida>Hola, {usuario.nombre}</Bienvenida>
+                  <Bienvenida>{usuario.nombre}</Bienvenida>
                   <BotonCerrarSesion
                     onClick={manejarCerrarSesion}
                     className="btn btn-outline-light"
@@ -131,7 +138,7 @@ function Navbar() {
                   </BotonCerrarSesion>
                 </>
               ) : (
-                <NavLink to="/iniciar-sesion" className="nav-link login-button" isActive={location.pathname === "/iniciar-sesion"}>
+                <NavLink to="/iniciar-sesion" className="nav-link login-button" isActive={location.pathname === "/iniciar-sesion"} style={{ marginLeft: '3px' }}>
                   Iniciar Sesión
                 </NavLink>
               )}
@@ -237,6 +244,10 @@ const IconoCarrito = styled(Link)`
   position: relative;
   font-size: 1rem;
   gap: 5px;
+
+  @media (max-width: 991.98px) {
+    padding: 0.5rem 1rem;
+  }
 
   &:hover {
     color: ${props => props.isActive ? '#ffc107' : 'white'} !important;

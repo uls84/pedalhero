@@ -17,10 +17,6 @@
   width: 300px;
 }
 
-div {
-  background-color: #c7a49f;
-}
-
 .textoDetalle h1 {
   font-size: -webkit-xxx-large;
 }
@@ -28,4 +24,38 @@ div {
 .textoDetalle h2 {
   margin-bottom: 61px;
   font-size: xx-large;
+}
+
+/* Botones de la página de detalle de productos */
+.btn-comprar, .btn-volver {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-comprar:hover, .btn-volver:hover {
+  background-color: #218838;
+}
+
+.btn-volver {
+  background-color: #A42B3D;
+}
+
+.btn-volver:hover {
+  background-color: #8a2231;
+}
+
+/* Estilos para móviles */
+@media (max-width: 767.98px) {
+  .btn-comprar, .btn-volver {
+    padding: 10px 25px;
+    font-size: 0.9rem;
+  }
 }

@@ -57,7 +57,7 @@ export default function Pagar() {
                   <div key={producto.id} style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: '20px' }}>
                     <img src={producto.avatar} alt={producto.nombre} width="100" />
                     <div>
-                      <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#28a745' }}>{producto.nombre}</div>
+                      <div style={{ fontSize: '18px', fontWeight: 'bold', color: 'rgb(164, 43, 61)' }}>{producto.nombre}</div>
                       <div>Precio unidad: ${formatearPrecio(precioUnitario)}</div>
                       <div>Cantidad: {cantidad}</div>
                       <div><strong>Subtotal: ${formatearPrecio(subtotal)}</strong></div>
@@ -69,38 +69,6 @@ export default function Pagar() {
               <h3 style={{ fontSize: '20px', fontWeight: 'bold', color: '#333', background: '#f9f6f4', padding: '15px', borderRadius: '10px' }}>Total a pagar: ${formatearPrecio(total)}</h3>
 
               <div style={{ margin: "20px 0", display: 'flex', justifyContent: 'center', gap: '10px' }}>
-                <button
-                  onClick={manejarVaciarCarrito}
-                  style={{
-                    padding: "10px 20px",
-                    background: "#dc3545",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                    fontSize: "16px",
-                    transition: "background 0.3s",
-                    marginRight: "10px",
-                  }}
-                >
-                  Vaciar Carrito
-                </button>
-          <button
-            onClick={() => navigate("/productos")}
-            style={{
-              padding: "10px 20px",
-              background: "#ffc107",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              fontSize: "16px",
-              transition: "background 0.3s",
-              marginRight: "10px",
-            }}
-          >
-                  {carrito.length > 0 ? "Seguir Comprando" : "Volver a Productos"}
-                </button>
                 {carrito.length > 0 && (
                   <button
                     onClick={comprar}
@@ -118,6 +86,36 @@ export default function Pagar() {
                     Confirmar y Pagar
                   </button>
                 )}
+                <button
+                  onClick={manejarVaciarCarrito}
+                  style={{
+                    padding: "10px 20px",
+                    background: "#dc3545",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    transition: "background 0.3s",
+                  }}
+                >
+                  Vaciar Carrito
+                </button>
+                <button
+                  onClick={() => navigate("/productos")}
+                  style={{
+                    padding: "10px 20px",
+                    background: "#e0ac0fff",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                    fontSize: "16px",
+                    transition: "background 0.3s",
+                  }}
+                >
+                  {carrito.length > 0 ? "Seguir Comprando" : "Volver a Productos"}
+                </button>
               </div>
             </>
           ) : (
