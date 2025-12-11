@@ -4,6 +4,7 @@ import { useCartContext } from "../context/CartContext";
 import { useAuthContext } from "../context/AuthContext";
 import { useProducts } from "../context/ProductsContext";
 import { useEffect, useState } from "react";
+import Loading from "../components/Loading";
 import "../css/Productos.css";
 
 export default function Productos() {
@@ -26,7 +27,7 @@ export default function Productos() {
   const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
-    document.title = "Tienda de Juegos de Mesa | Productos";
+    document.title = "PedalHero | Productos";
 
     const updateMetaTag = (name, content, attribute = "name") => {
       let meta = document.querySelector(`meta[${attribute}="${name}"]`);
@@ -106,13 +107,10 @@ export default function Productos() {
   );
   const cambiarPagina = (numeroPagina) => setPaginaActual(numeroPagina);
 
-  const manejarBusqueda = (e) => {
-    setBusqueda(e.target.value);
-    setPaginaActual(1);
-  };
 
-  if (cargando) return <p>Cargando productos...</p>;
-  if (error) return <p>{error}</p>;
+
+  if (cargando) return <Loading message="Cargando productos..." />;
+  if (error) return <div className="alert alert-danger text-center">{error}</div>;
 
   return (
     <>

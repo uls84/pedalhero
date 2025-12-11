@@ -15,62 +15,64 @@ import { ProductsProvider } from "./context/ProductsContext";
 import Dashboard from "./pages/Dashboard";
 import FormularioProducto from './components/FormularioProducto';
 import EliminarProducto from './components/EliminarProducto';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; 
-
-
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
-    <div>
-      <AuthProvider>
-        <CartProvider>
-          <ProductsProvider>
-            <Navbar />
-            <Routes>
-
-              <Route path="/" element={<Inicio />} />
-              <Route path="/servicios" element={<Servicios />} />
-              <Route path="/productos" element={<Productos />} />
-              <Route path="/productos/:id" element={<ProductoDetalle />} />
-              <Route path="/productos/:categoria/:id" element={<ProductoDetalle />} />
-              <Route path="/iniciar-sesion" element={<IniciarSesion />} />
-              <Route path="/pagar" element={<RutaProtegida><Pagar /></RutaProtegida>}/>      
-              <Route path="/dashboard" element={<RutaProtegida soloAdmin={true}><Dashboard /></RutaProtegida>}/>         
-              <Route
-                path="/formulario-producto"
-                element={
-                  <RutaProtegida>
-                    <FormularioProducto />
-                  </RutaProtegida>
-                }
+    <ErrorBoundary>
+      <div>
+        <AuthProvider>
+          <CartProvider>
+            <ProductsProvider>
+              <Navbar />
+              <Routes>
+                <Route path="/" element={<Inicio />} />
+                <Route path="/servicios" element={<Servicios />} />
+                <Route path="/productos" element={<Productos />} />
+                <Route path="/productos/:id" element={<ProductoDetalle />} />
+                <Route path="/productos/:categoria/:id" element={<ProductoDetalle />} />
+                <Route path="/iniciar-sesion" element={<IniciarSesion />} />
+                <Route path="/pagar" element={<RutaProtegida><Pagar /></RutaProtegida>}/>
+                <Route path="/dashboard" element={<RutaProtegida soloAdmin={true}><Dashboard /></RutaProtegida>}/>
+                <Route
+                  path="/formulario-producto"
+                  element={
+                    <RutaProtegida>
+                      <FormularioProducto />
+                    </RutaProtegida>
+                  }
+                />
+                <Route
+                  path="/eliminar-producto"
+                  element={
+                    <RutaProtegida>
+                      <EliminarProducto />
+                    </RutaProtegida>
+                  }
+                />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+              <Footer />
+              <ToastContainer
+                position="bottom-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                closeOnClick
+                draggable
+                pauseOnHover
               />
-              <Route
-                path="/eliminar-producto"
-                element={
-                  <RutaProtegida>
-                    <EliminarProducto />
-                  </RutaProtegida>
-                }
-              />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-            <Footer />
-            <ToastContainer
-              position="bottom-right"
-              autoClose={3000}
-              hideProgressBar={false}
-              closeOnClick
-              draggable
-              pauseOnHover
-            />
-          </ProductsProvider>
-        </CartProvider>
-      </AuthProvider>
-    </div>
+            </ProductsProvider>
+          </CartProvider>
+        </AuthProvider>
+      </div>
+    </ErrorBoundary>
   );
-} export default App;
+}
+
+export default App;

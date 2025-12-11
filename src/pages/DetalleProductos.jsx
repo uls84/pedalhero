@@ -1,12 +1,10 @@
-import { Link, useParams, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useCartContext } from "../context/CartContext";
-import { toast } from "react-toastify";
 import "../css/Servicios.css";
 
 
 const ProductoDetalle = () => {
 
-    const { id } = useParams();
     const location = useLocation();
     const producto = location.state?.producto;
     const { agregarAlCarrito } = useCartContext();
@@ -21,8 +19,8 @@ const ProductoDetalle = () => {
     };
 
     return (
-        <div className="services-container text-center">
-            <div className="d-flex flex-column flex-md-row align-items-center gap-4 w-100">
+        <div className="services-container text-left">
+            <div className="d-flex flex-column flex-md-row align-items-start gap-4 w-100">
                 {/* Columna para la imagen - IZQUIERDA */}
                 <div className="flex-shrink-0" style={{ flex: '0 0 40%' }}>
                     <img
@@ -36,25 +34,25 @@ const ProductoDetalle = () => {
                 {/* Columna para la información - DERECHA */}
                 <div className="flex-grow-1 d-flex flex-column justify-content-between" style={{ minHeight: '100%' }}>
                     <div>
-                        <h1 style={{ color: "#A42B3D", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "2px", fontSize: "2rem", marginBottom: "30px" }}>{producto.nombre}</h1>
+                        <h1 style={{ color: "#A42B3D", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "2px", fontSize: "2rem", marginBottom: "15px", textAlign: "left" }}>{producto.nombre}</h1>
 
-                        <div style={{ marginBottom: "25px" }}>
-                            <strong style={{ color: "#A42B3D", fontSize: "1.1rem", marginBottom: "10px", display: "block" }}>Descripción:</strong>
-                            <p style={{ lineHeight: "1.8", fontSize: "1rem", color: "#444", textAlign: "justify", marginBottom: "20px" }}>{producto.descripcion}</p>
+                        <div style={{ marginBottom: "10px" }}>
+                            <strong style={{ color: "#A42B3D", fontSize: "1.1rem", marginBottom: "3px", display: "block" }}>Descripción:</strong>
+                            <p style={{ lineHeight: "1.8", fontSize: "1rem", color: "#444", textAlign: "left", marginBottom: "5px" }}>{producto.descripcion}</p>
                         </div>
 
-                        <div style={{ marginBottom: "25px" }}>
-                            <strong style={{ color: "#A42B3D", fontSize: "1.1rem", marginBottom: "10px", display: "block" }}>Categoría:</strong>
+                        <div style={{ marginBottom: "10px" }}>
+                            <strong style={{ color: "#A42B3D", fontSize: "1.1rem", marginBottom: "3px", display: "block" }}>Categoría:</strong>
                             <span className="badge" style={{ backgroundColor: "#A42B3D", color: "white", padding: "8px 15px", fontSize: "0.9rem" }}>{producto.categoria}</span>
                         </div>
 
-                        <div style={{ marginBottom: "30px", backgroundColor: "rgba(164, 43, 61, 0.1)", padding: "15px", borderRadius: "8px" }}>
-                            <strong style={{ color: "#A42B3D", fontSize: "1.1rem", marginBottom: "10px", display: "block" }}>Precio:</strong>
+                        <div style={{ marginBottom: "15px", backgroundColor: "rgba(164, 43, 61, 0.1)", padding: "10px", borderRadius: "8px" }}>
+                            <strong style={{ color: "#A42B3D", fontSize: "1.1rem", marginBottom: "3px", display: "block" }}>Precio:</strong>
                             <h5 style={{ color: "#A42B3D", fontSize: "1.5rem", fontWeight: "bold", margin: "0" }}>${formatearPrecio(producto.precio)}</h5>
                         </div>
                     </div>
 
-                    <div className="mt-auto d-flex gap-3 justify-content-center mb-4">
+                    <div className="mt-auto d-flex gap-3 justify-content-start mb-4">
                         <button
                             onClick={manejarAgregarAlCarrito}
                             style={{

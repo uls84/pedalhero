@@ -1,4 +1,4 @@
-import React, { createContext, use, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useMemo } from "react";
 import { toast } from "react-toastify";
 
 // Crear el contexto
@@ -90,7 +90,7 @@ const agregarAlCarrito = (producto) => {
   }, 0);
  
   // Valor que se provee a todos los componentes
-  const value = {  
+  const value = useMemo(() => ({
     // Carrito
     carrito,
     agregarAlCarrito,
@@ -103,7 +103,7 @@ const agregarAlCarrito = (producto) => {
 
     // f(x) total
     total
-  };
+  }), [carrito, total]);
 
   return (
     <CartContext.Provider value={value}>
