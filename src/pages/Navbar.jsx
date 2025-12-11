@@ -37,19 +37,19 @@ function Navbar() {
     <>
       <NavbarContainer className="navbar navbar-expand-lg navbar-dark fixed-top">
         <div className="container-fluid d-flex justify-content-between align-items-center">
-          {/* Logo a la izquierda y barra de búsqueda al lado */}
-          <div className="d-flex align-items-center">
-            <Logo to="/" className="navbar-brand me-3">
-              <img className="logoGrande" src="/logogrande1.png"></img> 
+          {/* Logo, barra de búsqueda y botón toggler en la misma línea */}
+          <div className="d-flex align-items-center flex-grow-1">
+            <Logo to="/" className="navbar-brand me-2">
+              <img className="logoGrande" src="/logogrande1.png"></img>
             </Logo>
 
-            <form className="d-flex" role="search" onSubmit={manejarBusqueda}>
+            <form className="d-flex me-2" role="search" onSubmit={manejarBusqueda}>
               <input
                 className="form-control me-2"
                 type="search"
                 placeholder="Buscar productos..."
                 aria-label="Search"
-                style={{ width: "150px" }}
+                style={{ width: "120px" }}
                 value={busquedaNavbar}
                 onChange={(e) => {
                   const value = e.target.value;
@@ -64,20 +64,20 @@ function Navbar() {
                 Buscar
               </button>
             </form>
-          </div>
 
-          {/* Botón toggler para móvil */}
-          <button
-            className="navbar-toggler d-lg-none"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarContent"
-            aria-controls="navbarContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+            {/* Botón toggler para móvil */}
+            <button
+              className="navbar-toggler d-lg-none ms-auto"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarContent"
+              aria-controls="navbarContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+          </div>
 
           {/* Links y usuario a la derecha */}
           <div
@@ -151,7 +151,7 @@ const NavbarContainer = styled.nav`
   padding: 0.5rem 2rem;
 
   @media (max-width: 991.98px) {
-    padding-left: 0.5rem;
+    padding-left: 0.25rem;
   }
 `;
 
