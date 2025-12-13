@@ -1,0 +1,38 @@
+.pagar-container {
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .pagar-container {
+    flex-direction: column;
+  }
+}
+
+.cart-section {
+  flex: 2;
+}
+
+.user-section {
+  flex: 1;
+  padding-left: 20px;
+  border-left: 1px solid #ddd;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .user-section {
+    padding-left: 0;
+    border-left: none;
+    text-align: left;
+  }
+
+  .user-greeting, .user-email {
+    padding: 0.5rem 1rem;
+  }
+
+  .logout-btn {
+    padding: 0.5rem 1rem;
+  }
+}

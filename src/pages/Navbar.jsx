@@ -126,7 +126,7 @@ function Navbar() {
               )}
             </div>
 
-            <SeccionUsuario className="d-flex flex-row align-items-center">
+            <SeccionUsuario className="d-flex flex-row align-items-center" isAuthenticated={isAuthenticated}>
               {isAuthenticated ? (
                 <>
                   <Bienvenida>{usuario.nombre}</Bienvenida>
@@ -274,6 +274,12 @@ const SeccionUsuario = styled.div`
   display: flex;
   gap: 1rem;
   align-items-center;
+
+  ${props => props.isAuthenticated && `
+    @media (max-width: 768px) {
+      padding: 0.5rem 1rem;
+    }
+  `}
 `;
 
 const ContenedorUsuario = styled.div`

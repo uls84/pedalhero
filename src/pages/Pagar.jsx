@@ -3,6 +3,7 @@ import { useAuthContext } from '../context/AuthContext';
 import { useCartContext } from '../context/useCartContext';
 import { toast } from "react-toastify";
 import "../css/Servicios.css";
+import "../css/Pagar.css";
 
 export default function Pagar() {
   const { usuario, cerrarSesion } = useAuthContext();
@@ -42,9 +43,9 @@ export default function Pagar() {
   return (
     <div className="services-container">
       <h1 style={{ textAlign: 'center' }}>Pago</h1>
-      <div style={{ padding: "20px", display: 'flex', gap: '20px' }}>
+      <div className="pagar-container">
         {/* Izquierda: Carrito */}
-        <div style={{ flex: 2 }}>
+        <div className="cart-section">
           <h2>Tu compra:</h2>
 
           {carrito.length > 0 ? (
@@ -124,9 +125,9 @@ export default function Pagar() {
         </div>
 
         {/* Derecha: Info del usuario */}
-        <div style={{ flex: 1, paddingLeft: '20px', borderLeft: '1px solid #ddd', textAlign: 'right' }}>
-          <h2 style={{ fontSize: '18px', textAlign: 'right' }}>Hola {usuario.nombre}</h2>
-          <p style={{ fontSize: '14px', textAlign: 'right' }}>Email: {usuario.email}</p>
+        <div className="user-section">
+          <h2 className="user-greeting" style={{ fontSize: '18px' }}>Hola {usuario.nombre}</h2>
+          <p className="user-email" style={{ fontSize: '14px' }}>Email: {usuario.email}</p>
 
           {/* Estilo para el Token */}
           <div style={{
@@ -140,6 +141,7 @@ export default function Pagar() {
             <strong>Token:</strong> {tokenActual}
           </div>
           <button
+            className="logout-btn"
             onClick={manejarCerrarSesion}
             style={{
               padding: "8px 16px",
